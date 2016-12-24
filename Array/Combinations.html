@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>2 dimensional array combinations</title>
+  </head>
+  <body>
+    <script>
+      function combine(array) {
+        var n = array.length;
+        if(n > 1) {
+          var result = [];
+          var subArray = combine(array.slice(1,n));
+          for(var i=0; i<array[0].length; i++) {
+            for(var j=0; j<subArray.length; j++){
+              var combination = array[0][i] + ", " + subArray[j];
+              result.push(combination);
+              console.log(combination);
+            }
+          }
+          return result;
+        } else {
+          return array[0];
+        }
+      }
+
+      var myArray = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7]
+      ];
+
+      console.log(combine(myArray));
+    </script>
+  </body>
+</html>

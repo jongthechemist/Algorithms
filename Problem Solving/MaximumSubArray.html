@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Maximum Sub Array - Kadane's Algorithm</title>
+  </head>
+  <body>
+    <script>
+      //https://www.youtube.com/watch?v=86CQq3pKSUw
+      function maximumSubArray(array) {
+        var maxGlobalIndex = [0, 0];
+        var maxCurrentIndex = [0, 0];
+        var maxGlobal = array[0];
+        var maxCurrent = array[0];
+
+        for(var i=1; i<array.length; i++) {
+          if(array[i] > maxCurrent + array[i]) {
+            maxCurrent = array[i];
+            maxCurrentIndex = [i, i];
+          } else {
+            maxCurrent += array[i];
+            maxCurrentIndex = [maxCurrentIndex[0], i];
+          }
+          if(maxCurrent > maxGlobal) {
+            maxGlobal = maxCurrent;
+            maxGlobalIndex = maxCurrentIndex;
+          }
+        }
+        return maxGlobalIndex;
+      }
+
+      var myArray = [0,-1,2,-3,4,-5,1,2,3,-8];
+
+      console.log(maximumSubArray(myArray));
+
+    </script>
+  </body>
+</html>
