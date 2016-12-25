@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Tree Search</title>
+  </head>
+  <body>
+    <script>
+      //https://www.youtube.com/watch?v=oSWTXtMglKE
+
+      function insert(tree, value) {
+        if(!tree) {
+          tree = { value : value };
+        } else {
+          if(value < tree.value) {
+            tree.left = insert(tree.left, value);
+          } else {
+            tree.right = insert(tree.right, value);
+          }
+        }
+        return tree;
+      }
+
+      function order(tree) {
+        var result = [];
+        if(tree.left) {
+          result = result.concat(order(tree.left));
+        }
+        result.push(tree.value);
+        if(tree.right) {
+          result = result.concat(order(tree.right));
+        }
+        return result;
+      }
+
+      function print(tree) {
+        var nodes = [tree];
+        var level = 0;
+        console.log(tree.value);
+        do{
+          level++;
+          var childnodes = [];
+          var left, right, str = '';
+          for(var i=0; i<nodes.length; i++) {
+            left = '\t\t\t\t\t';
+            right = '\t\t\t\t\t';
+            if(nodes[i].left) {
+              left = nodes[i].left.value;
+              childnodes.push(nodes[i].left);
+            }
+            if(nodes[i].right) {
+              right = nodes[i].right.value;
+              childnodes.push(nodes[i].right);
+            }
+            str += ' L:' + left + '\tR:' + right + '; \t';
+          }
+          console.log(level + str);
+          nodes = childnodes;
+        }
+        while(nodes.length > 0)
+      }
+
+      var myArray = new Array(10).fill(0).map(Math.random);
+      console.log(myArray);
+
+      var treeSearch;
+      for(var i=0; i<myArray.length; i++) {
+        treeSearch = insert(treeSearch, myArray[i]);
+      }
+      console.log(treeSearch);
+      console.log(order(treeSearch));
+      print(treeSearch);
+
+    </script>
+  </body>
+</html>
