@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Tries</title>
+  </head>
+  <body>
+    <script>
+      var myTrie = {};
+
+      function insert(trie, word) {
+        //*
+        if(word.length === 0) {
+          trie['*'] = true;
+        } else {
+          if(typeof trie[word[0]] === 'undefined') trie[word[0]] = {};
+          trie[word[0]] = insert(trie[word[0]], word.slice(1, word.length));
+        }
+        return trie;
+        //*/
+
+        /*
+        var currtrie = trie;
+        for(var i=0; i<word.length; i++) {
+          if(!currtrie[word[i]]) {
+            currtrie[word[i]] = {};
+          }
+          currtrie = currtrie[word[i]];
+        }
+        currtrie['*'] = true;
+        return trie;
+        */
+      }
+
+
+      function exist(dictionary, word) {
+        if(word.length === 0) {
+          if(!dictionary['*']) return false;
+          return dictionary['*'];
+        }
+        if(dictionary[word[0]]) {
+          return exist(dictionary[word[0]], word.slice(1, word.length));
+        }
+        return false;
+      }
+
+      myTrie = insert(myTrie, 'honey');
+      console.log(myTrie);
+      myTrie = insert(myTrie, 'honeys');
+      console.log(myTrie);
+      myTrie = insert(myTrie, 'honeymoon');
+      console.log(myTrie);
+
+      console.log(exist(myTrie, 'honeys'));
+      console.log(exist(myTrie, 'hon'));
+      console.log(exist(myTrie, 'honey'));
+
+    </script>
+  </body>
+</html>
